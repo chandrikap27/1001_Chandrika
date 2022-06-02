@@ -1,60 +1,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct node {
-    int data_1001;
-    int priority_1001;
-    struct node* next_1001;
+    int data;
+    int priority;
+    struct node* next;
  
 } Node;
-Node* newNode(int d_1001, int p_1001)
+Node* newNode(int d, int p)
 {
-    Node* temp_1001 = (Node*)malloc(sizeof(Node));
-    temp_1001->data_1001 = d_1001;
-    temp_1001->priority_1001 = p_1001;
-    temp_1001->next_1001 = NULL;
-    return temp_1001;
+    Node* temp = (Node*)malloc(sizeof(Node));
+    temp->data = d;
+    temp->priority = p;
+    temp->next = NULL;
+    return temp;
 }
-int peek(Node** head_1001)
+int peek(Node** head)
 {
-    return (*head_1001)->data_1001;
+    return (*head)->data;
 }
-void pop(Node** head_1001)
+void pop(Node** head)
 {
-    Node* temp_1001 = *head_1001;
-    (*head_1001) = (*head_1001)->next_1001;
-    free(temp_1001);
+    Node* temp = *head;
+    (*head) = (*head)->next;
+    free(temp);
 }
-void push(Node** head_1001, int d_1001, int p_1001)
+void push(Node** head, int d, int p)
 {
-    Node* start_1001 = (*head_1001);
-    Node* temp_1001 = newNode(d_1001, p_1001);
-    if ((*head_1001)->priority_1001 > p_1001) {
-         temp_1001->next_1001 = *head_1001;
-        (*head_1001) = temp_1001;
+    Node* start = (*head);
+    Node* temp = newNode(d, p);
+    if ((*head)->priority > p) {
+         temp->next = *head;
+        (*head) = temp;
     }
     else {
-        while (start_1001->next_1001 != NULL &&
-            start_1001->next_1001->priority_1001 < p_1001) {
-            start_1001 = start_1001->next_1001;
+        while (start->next != NULL &&
+            start->next->priority < p) {
+            start = start->next;
         }
-         temp_1001->next_1001 = start_1001->next_1001;
-        start_1001->next_1001 = temp_1001;
+         temp->next = start->next;
+        start->next = temp;
     }
 }
-int isEmpty(Node** head_1001)
+int isEmpty(Node** head)
 {
-    return (*head_1001) == NULL;
+    return (*head) == NULL;
 }
 int main()
 {
-    Node* pq_1001 = newNode(43, 1);
-    push(&pq_1001, 68, 2);
-    push(&pq_1001, 98, 3);
-    push(&pq_1001, 27, 0);
+    Node* pq = newNode(43, 1);
+    push(&pq, 68, 2);
+    push(&pq, 98, 3);
+    push(&pq, 27, 0);
  
-    while (!isEmpty(&pq_1001)) {
-        printf("%d ", peek(&pq_1001));
-        pop(&pq_1001);
+    while (!isEmpty(&pq)) {
+        printf("%d ", peek(&pq));
+        pop(&pq);
     }
  
     return 0;

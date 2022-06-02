@@ -15,129 +15,129 @@ d.	Location (String)
 #include <string.h>
 struct database
 {
-    char name_1001[50];
-    char ft_name_1001[50];
-    char phn_1001[20];
-    char location_1001[100];
-    char dept_1001;
-    struct database *next_1001;
+    char name[50];
+    char ft_name[50];
+    char phn[20];
+    char location[100];
+    char dept;
+    struct database *next;
 };
-struct database *head_1001, *temp_1001, *newnode_1001;
-struct database *head_C_1001 = NULL, *head_I_1001 = NULL;
+struct database *head, *temp, *newnode;
+struct database *head_C = NULL, *head_I = NULL;
 void insert_from_first()
 {
-    head_1001 = NULL;
-    int ch_1001 = 1;
+    head = NULL;
+    int ch = 1;
     printf("Enter data of students from Beginning : \n");
-    while (ch_1001)
+    while (ch)
     {
-        newnode_1001 = (struct database *)malloc(sizeof(struct database));
+        newnode = (struct database *)malloc(sizeof(struct database));
         printf("Enter Department : ");
-        scanf("%c", &newnode_1001->dept_1001);
+        scanf("%c", &newnode->dept);
         getchar();
         printf("Enter name : ");
-        gets(newnode_1001->name_1001);
+        gets(newnode->name);
         printf("Enter father's name : ");
-        gets(newnode_1001->ft_name_1001);
+        gets(newnode->ft_name);
         printf("Enter phone number : ");
-        gets(newnode_1001->phn_1001);
+        gets(newnode->phn);
         printf("Enter location : ");
-        gets(newnode_1001->location_1001);
-        newnode_1001->next_1001 = NULL;
-        if (head_1001 == NULL)
-            head_1001 = temp_1001 = newnode_1001;
+        gets(newnode->location);
+        newnode->next = NULL;
+        if (head == NULL)
+            head = temp = newnode;
         else
         {
-            temp_1001 = head_1001;
-            head_1001 = newnode_1001;
-            head_1001->next_1001 = temp_1001;
-            temp_1001 = temp_1001->next_1001;
+            temp = head;
+            head = newnode;
+            head->next = temp;
+            temp = temp->next;
         }
         printf("Do you want to continue ?? 1 for Yes 0 for No : ");
-        scanf("%d", &ch_1001);
+        scanf("%d", &ch);
         getchar();
     }
 }
 void insert_from_last()
 {
-    int ch_1001 = 1;
-    temp_1001 = head_1001;
-    while (temp_1001->next_1001 != 0)
-        temp_1001 = temp_1001->next_1001;
+    int ch = 1;
+    temp = head;
+    while (temp->next != 0)
+        temp = temp->next;
     printf("Enter data of students from Last : \n");
-    while (ch_1001)
+    while (ch)
     {
-        newnode_1001 = (struct database *)malloc(sizeof(struct database));
+        newnode = (struct database *)malloc(sizeof(struct database));
         printf("Enter Department : ");
-        scanf("%c", &newnode_1001->dept_1001);
+        scanf("%c", &newnode->dept);
         getchar();
         printf("Enter name : ");
-        gets(newnode_1001->name_1001);
+        gets(newnode->name);
         printf("Enter father's name : ");
-        gets(newnode_1001->ft_name_1001);
+        gets(newnode->ft_name);
         printf("Enter phone number : ");
-        gets(newnode_1001->phn_1001);
+        gets(newnode->phn);
         printf("Enter location : ");
-        gets(newnode_1001->location_1001);
-        newnode_1001->next_1001 = NULL;
-        temp_1001->next_1001 = newnode_1001;
-        temp_1001 = temp_1001->next_1001;
-        temp_1001 = newnode_1001;
+        gets(newnode->location);
+        newnode->next = NULL;
+        temp->next = newnode;
+        temp = temp->next;
+        temp = newnode;
         printf("Do you want to continue ?? 1 for Yes 0 for No : ");
-        scanf("%d", &ch_1001);
+        scanf("%d", &ch);
         getchar();
     }
 }
-struct database *seg_until_create(char *name_1001, char *ftname_1001, char *loc_1001, char *phn_1001, char dp_1001)
+struct database *seg_until_create(char *name, char *ftname, char *loc, char *phn, char dp)
 {
-    struct database *new_1001 = (struct database *)malloc(sizeof(struct database));
-    strcpy(new_1001->name_1001, name_1001);
-    strcpy(new_1001->ft_name_1001, ftname_1001);
-    strcpy(new_1001->location_1001, loc_1001);
-    strcpy(new_1001->phn_1001, phn_1001);
-    new_1001->dept_1001 = dp_1001;
-    new_1001->next_1001 = NULL;
-    return new_1001;
+    struct database *new = (struct database *)malloc(sizeof(struct database));
+    strcpy(new->name, name);
+    strcpy(new->ft_name, ftname);
+    strcpy(new->location, loc);
+    strcpy(new->phn, phn);
+    new->dept = dp;
+    new->next = NULL;
+    return new;
 }
-struct database *seg_until_insert(struct database *head_1001, char *name_1001, char *ftname_1001, char *loc_1001, char *phn_1001, char dp_1001)
+struct database *seg_until_insert(struct database *head, char *name, char *ftname, char *loc, char *phn, char dp)
 {
-    struct database *x_n_1001 = seg_until_create(name_1001, ftname_1001, loc_1001, phn_1001, dp_1001);
-    if (head_1001 == NULL)
-        return x_n_1001;
+    struct database *x_n = seg_until_create(name, ftname, loc, phn, dp);
+    if (head == NULL)
+        return x_n;
     else
     {
-        struct database *t_new_1001 = head_1001;
-        while (t_new_1001->next_1001 != NULL)
-            t_new_1001 = t_new_1001->next_1001;
-        t_new_1001->next_1001 = x_n_1001;
-        return head_1001;
+        struct database *t_new = head;
+        while (t_new->next != NULL)
+            t_new = t_new->next;
+        t_new->next = x_n;
+        return head;
     }
 }
-void seggregate(struct database *head_1001)
+void seggregate(struct database *head)
 {
-    struct database *temp_1001 = head_1001;
-    struct database *del_n_1001;
-    while (temp_1001 != NULL)
+    struct database *temp = head;
+    struct database *del_n;
+    while (temp != NULL)
     {
-        if (temp_1001->dept_1001 == 'C'||temp_1001->dept_1001 == 'c')
-            head_C_1001 = seg_until_insert(head_C_1001, temp_1001->name_1001, temp_1001->ft_name_1001, temp_1001->location_1001, temp_1001->phn_1001, temp_1001->dept_1001);
+        if (temp->dept == 'C'||temp->dept == 'c')
+            head_C = seg_until_insert(head_C, temp->name, temp->ft_name, temp->location, temp->phn, temp->dept);
         else
-            head_I_1001 = seg_until_insert(head_I_1001, temp_1001->name_1001, temp_1001->ft_name_1001, temp_1001->location_1001, temp_1001->phn_1001, temp_1001->dept_1001);
-        del_n_1001 = temp_1001;
-        temp_1001 = temp_1001->next_1001;
-        free(del_n_1001);
+            head_I = seg_until_insert(head_I, temp->name, temp->ft_name, temp->location, temp->phn, temp->dept);
+        del_n = temp;
+        temp = temp->next;
+        free(del_n);
     }
 }
-void traverse_print(struct database *head_1001)
+void traverse_print(struct database *head)
 {
-    if (head_1001 == NULL)
+    if (head == NULL)
         printf("No student in a department ! \n");
     else
     {
-        while (head_1001 != NULL)
+        while (head != NULL)
         {
-            printf("%s\t%s\t%s\t%s\t%c\n", head_1001->name_1001, head_1001->ft_name_1001, head_1001->location_1001, head_1001->phn_1001, head_1001->dept_1001);
-            head_1001 = head_1001->next_1001;
+            printf("%s\t%s\t%s\t%s\t%c\n", head->name, head->ft_name, head->location, head->phn, head->dept);
+            head = head->next;
         }
     }
     printf("\n");
@@ -148,13 +148,13 @@ int main()
     insert_from_last();
     printf("\n------ALL DETAILS------\n");
      printf("NAME\tFATHER\tADDRESS\tPHONE\tDEPARTMENT\n");
-    traverse_print(head_1001);
-    seggregate(head_1001);
+    traverse_print(head);
+    seggregate(head);
     printf("\n----------CSE----------\n");
     printf("NAME\tFATHER\tADDRESS\tPHONE\tDEPARTMENT\n");
-    traverse_print(head_C_1001);
+    traverse_print(head_C);
     printf("\n----------IT----------\n");
     printf("NAME\tFATHER\tADDRESS\tPHONE\tDEPARTMENT\n");
-    traverse_print(head_I_1001);
+    traverse_print(head_I);
     return 0;
 }

@@ -13,96 +13,96 @@ the type of participant.[Note:Delete from the master linked list and insert in t
 #include <string.h>
 struct node
 {
-    char name_1001[50];
-    char type_1001;
-    char mob_1001[15];
-    struct node *next_1001;
+    char name[50];
+    char type;
+    char mob[15];
+    struct node *next;
 };
-struct node *newnode_1001;
-struct node *head_1001, *temp_1001;
-struct node *headS_1001 = NULL;
-struct node *headG_1001 = NULL;
-struct node *headO_1001 = NULL;
-struct node *headD_1001 = NULL;
+struct node *newnode;
+struct node *head, *temp;
+struct node *headS = NULL;
+struct node *headG = NULL;
+struct node *headO = NULL;
+struct node *headD = NULL;
 
 void create()
 {
-    int ch_1001 = 1;
-    head_1001 = NULL;
-    while (ch_1001)
+    int ch = 1;
+    head = NULL;
+    while (ch)
     {
-        newnode_1001 = (struct node *)malloc(sizeof(struct node));
+        newnode = (struct node *)malloc(sizeof(struct node));
         printf("Enter data for Participants : \n");
         printf("Enter participant type : ");
-        scanf("%c", &newnode_1001->type_1001);
+        scanf("%c", &newnode->type);
         getchar();
         printf("Enter name : ");
-        gets(newnode_1001->name_1001);
+        gets(newnode->name);
         printf("Enter Phone number : ");
-        gets(newnode_1001->mob_1001);
-        newnode_1001->next_1001 = NULL;
-        if (head_1001 == NULL)
-            head_1001 = temp_1001 = newnode_1001;
+        gets(newnode->mob);
+        newnode->next = NULL;
+        if (head == NULL)
+            head = temp = newnode;
         else
         {
-            temp_1001->next_1001 = newnode_1001;
-            temp_1001 = temp_1001->next_1001;
+            temp->next = newnode;
+            temp = temp->next;
         }
         printf("Do you want to continue ? 1 for Yes : 0 for No :: ");
-        scanf("%d", &ch_1001);
+        scanf("%d", &ch);
         getchar();
     }
 }
-struct node *seg_until_create(char *name_1001, char type_1001, char *mob_1001)
+struct node *seg_until_create(char *name, char type, char *mob)
 {
-    struct node *n_1001 = (struct node *)malloc(sizeof(struct node));
-    strcpy(n_1001->name_1001, name_1001);
-    n_1001->type_1001 = type_1001;
-    strcpy(n_1001->mob_1001, mob_1001);
-    n_1001->next_1001 = NULL;
-    return n_1001;
+    struct node *n = (struct node *)malloc(sizeof(struct node));
+    strcpy(n->name, name);
+    n->type = type;
+    strcpy(n->mob, mob);
+    n->next = NULL;
+    return n;
 }
-struct node *seg_until_ins(struct node *head_1001, char *name_1001, char type_1001, char *mob_1001)
+struct node *seg_until_ins(struct node *head, char *name, char type, char *mob)
 {
-    struct node *x_1001 = seg_until_create(name_1001, type_1001, mob_1001);
-    if (head_1001 == NULL)
-        return x_1001;
+    struct node *x = seg_until_create(name, type, mob);
+    if (head == NULL)
+        return x;
     else
     {
-        struct node *c_1001 = head_1001;
-        while (c_1001->next_1001 != NULL)
-            c_1001 = c_1001->next_1001;
-        c_1001->next_1001 = x_1001;
-        return head_1001;
+        struct node *c = head;
+        while (c->next != NULL)
+            c = c->next;
+        c->next = x;
+        return head;
     }
 }
-void segregate(struct node *head_1001)
+void segregate(struct node *head)
 {
-    struct node *temp_1001 = head_1001;
-    while (temp_1001 != NULL)
+    struct node *temp = head;
+    while (temp != NULL)
     {
-        if (temp_1001->type_1001 == 'S')
-            headS_1001 = seg_until_ins(headS_1001, temp_1001->name_1001, temp_1001->type_1001, temp_1001->mob_1001);
-        if (temp_1001->type_1001 == 'G')
-            headG_1001 = seg_until_ins(headG_1001, temp_1001->name_1001, temp_1001->type_1001, temp_1001->mob_1001);
-        if (temp_1001->type_1001 == 'O')
-            headO_1001 = seg_until_ins(headO_1001, temp_1001->name_1001, temp_1001->type_1001, temp_1001->mob_1001);
-        else if (temp_1001->type_1001 == 'D')
-            headD_1001 = seg_until_ins(headD_1001, temp_1001->name_1001, temp_1001->type_1001, temp_1001->mob_1001);
-        struct node *toBeDel_1001 = temp_1001;
-        temp_1001 = temp_1001->next_1001;
-        free(toBeDel_1001);
+        if (temp->type == 'S')
+            headS = seg_until_ins(headS, temp->name, temp->type, temp->mob);
+        if (temp->type == 'G')
+            headG = seg_until_ins(headG, temp->name, temp->type, temp->mob);
+        if (temp->type == 'O')
+            headO = seg_until_ins(headO, temp->name, temp->type, temp->mob);
+        else if (temp->type == 'D')
+            headD = seg_until_ins(headD, temp->name, temp->type, temp->mob);
+        struct node *toBeDel = temp;
+        temp = temp->next;
+        free(toBeDel);
     }
 }
-void traverse(struct node *head_1001)
+void traverse(struct node *head)
 {
-    if (head_1001 == NULL)
+    if (head == NULL)
         printf("Empty List !\n");
 
-    while (head_1001 != NULL)
+    while (head != NULL)
     {
-        printf("%s\t%c\t%s\n", head_1001->name_1001, head_1001->type_1001, head_1001->mob_1001);
-        head_1001 = head_1001->next_1001;
+        printf("%s\t%c\t%s\n", head->name, head->type, head->mob);
+        head = head->next;
     }
     printf("\n");
 }
@@ -112,19 +112,19 @@ int main()
     create();
     printf("--------ALL DETAILS--------\n");
     printf("NAME\tTYPE\tPHONE\n");
-    traverse(head_1001);
-    segregate(head_1001);
+    traverse(head);
+    segregate(head);
     printf("--------STUDENTS--------\n");
     printf("NAME\tTYPE\tPHONE\n");
-    traverse(headS_1001);
+    traverse(headS);
     printf("--------GUEST--------\n");
     printf("NAME\tTYPE\tPHONE\n");
-    traverse(headG_1001);
+    traverse(headG);
     printf("--------ORGANIZING TEAM--------\n");
     printf("NAME\tTYPE\tPHONE\n");
-    traverse(headO_1001);
+    traverse(headO);
     printf("--------DELEGATE--------\n");
     printf("NAME\tTYPE\tPHONE\n");
-    traverse(headD_1001);
+    traverse(headD);
     return 0;
 }

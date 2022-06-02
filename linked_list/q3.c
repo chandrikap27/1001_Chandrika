@@ -2,222 +2,222 @@
 #include <stdlib.h>
 struct patient
 {
-    char gender_1001, name_1001[10], disease_1001[10];
-    struct patient *link_1001;
-} *wmh_1001 = NULL, *wmt_1001 = NULL, *wfh_1001 = NULL, *wft_1001 = NULL;
+    char gender, name[10], disease[10];
+    struct patient *link;
+} *wmh = NULL, *wmt = NULL, *wfh = NULL, *wft = NULL;
 struct cabin
 {
-    int no_1001;
-    char status_1001;
-    struct patient *pat_1001;
-    struct cabin *link_1001;
-} *master_1001 = NULL, *temp_1001;
-int countm_1001 = 0, countf_1001 = 0, n_1001, mmax_1001, fmax_1001;
+    int no;
+    char status;
+    struct patient *pat;
+    struct cabin *link;
+} *master = NULL, *temp;
+int countm = 0, countf = 0, n, mmax, fmax;
 void create()
 {   
-    for (int i_1001 = 0; i_1001 < n_1001; i_1001++)
+    for (int i = 0; i < n; i++)
     {
-        struct cabin *new_1001 = (struct cabin*)malloc(sizeof(struct cabin));
-        new_1001->no_1001 = i_1001+1;
-        new_1001->status_1001 = 'N';
-        new_1001->link_1001 = NULL;
-        new_1001->pat_1001 = NULL;
-        if (master_1001==NULL) 
+        struct cabin *new = (struct cabin*)malloc(sizeof(struct cabin));
+        new->no = i+1;
+        new->status = 'N';
+        new->link = NULL;
+        new->pat = NULL;
+        if (master==NULL) 
         {
-            master_1001 = new_1001;
-            temp_1001 = new_1001;
+            master = new;
+            temp = new;
         }
         else
         {
-            temp_1001->link_1001 = new_1001;
-            temp_1001 = new_1001;
+            temp->link = new;
+            temp = new;
         }
     }
 }
 void admit()
 {
-    struct patient *new_1001 = (struct patient*)malloc(sizeof(struct patient));
+    struct patient *new = (struct patient*)malloc(sizeof(struct patient));
     printf("Enter Name : ");
     fflush(stdin);
-    scanf("%s", new_1001->name_1001);
+    scanf("%s", new->name);
     fflush(stdin);
     printf("Enter Gender : ");
-    scanf("%c", &(new_1001->gender_1001));
+    scanf("%c", &(new->gender));
     fflush(stdin);
     printf("Enter disease : ");
-    scanf("%s", new_1001->disease_1001);
-    new_1001->link_1001 = NULL;
-    struct cabin *temp_1001;
-    if (new_1001->gender_1001 == 'M'||new_1001->gender_1001=='m')
+    scanf("%s", new->disease);
+    new->link = NULL;
+    struct cabin *temp;
+    if (new->gender == 'M'||new->gender=='m')
     {
-        if (countm_1001 < mmax_1001)
+        if (countm < mmax)
         {
-            countm_1001++;
-            temp_1001 = master_1001;
-            while (temp_1001)
+            countm++;
+            temp = master;
+            while (temp)
             {
-                if (temp_1001->status_1001 == 'N')
+                if (temp->status == 'N')
                 {
-                    temp_1001->pat_1001 = new_1001;
-                    temp_1001->status_1001 = 'Y';
+                    temp->pat = new;
+                    temp->status = 'Y';
                     break;
                 }
-                if (temp_1001->link_1001)
-                    temp_1001 = temp_1001->link_1001->link_1001;
+                if (temp->link)
+                    temp = temp->link->link;
                 else
                     break;
             }
         }
         else
         {
-            if (!wmh_1001)
+            if (!wmh)
             {
-                wmh_1001 = new_1001;
-                wmt_1001 = new_1001;
+                wmh = new;
+                wmt = new;
             }
             else
             {
-                wmt_1001->link_1001 = new_1001;
-                wmt_1001 = new_1001;
+                wmt->link = new;
+                wmt = new;
             }
         }
     }
-    else if (new_1001->gender_1001 == 'F'||new_1001->gender_1001 == 'f')
+    else if (new->gender == 'F'||new->gender == 'f')
     {
-        if (countf_1001 < fmax_1001)
+        if (countf < fmax)
         {
-            countf_1001++;
-            temp_1001 = master_1001->link_1001;
-            while (temp_1001)
+            countf++;
+            temp = master->link;
+            while (temp)
             {
-                if (temp_1001->status_1001 == 'N')
+                if (temp->status == 'N')
                 {
-                    temp_1001->pat_1001 = new_1001;
-                    temp_1001->status_1001 = 'Y';
+                    temp->pat = new;
+                    temp->status = 'Y';
                     break;
                 }
-                if (temp_1001->link_1001)
-                    temp_1001 = temp_1001->link_1001->link_1001;
+                if (temp->link)
+                    temp = temp->link->link;
                 else
                     break;
             }
         }
         else
         {
-            if (!wfh_1001)
+            if (!wfh)
             {
-                wfh_1001 = new_1001;
-                wft_1001 = new_1001;
+                wfh = new;
+                wft = new;
             }
             else
             {
-                wft_1001->link_1001 = new_1001;
-                wft_1001 = new_1001;
+                wft->link = new;
+                wft = new;
             }
         }
     }
 }
 void discharge()
 {
-    int in_1001;
-    temp_1001 = master_1001;
+    int in;
+    temp = master;
 in:
     printf("Enter cabin no. : ");
-    scanf("%d", &in_1001);
-    if (in_1001 > n_1001 || in_1001 < 1)
+    scanf("%d", &in);
+    if (in > n || in < 1)
     {
         printf("Invalid input : ");
         goto in;
     }
-    while (temp_1001)
+    while (temp)
     {
-        if (temp_1001->no_1001 == in_1001)
+        if (temp->no == in)
         {
-            if (in_1001 % 2)
+            if (in % 2)
             {
-                if (wmh_1001)
+                if (wmh)
                 {
-                    temp_1001->pat_1001 = wmh_1001;
-                    wmh_1001 = wmh_1001->link_1001;
+                    temp->pat = wmh;
+                    wmh = wmh->link;
                 }
                 else
-                    temp_1001->status_1001 = 'N';
+                    temp->status = 'N';
             }
             else
             {
-                if (wfh_1001)
+                if (wfh)
                 {
-                    temp_1001->pat_1001 = wfh_1001;
-                    wfh_1001 = wfh_1001->link_1001;
+                    temp->pat = wfh;
+                    wfh = wfh->link;
                 }
                 else
-                    temp_1001->status_1001 = 'N';
+                    temp->status = 'N';
             }
-            temp_1001->pat_1001->link_1001 = NULL;
+            temp->pat->link = NULL;
             break;
         }
-        temp_1001 = temp_1001->link_1001;
+        temp = temp->link;
     }
 }
 void display()
 {
-    temp_1001 = master_1001;
-    while (temp_1001)
+    temp = master;
+    while (temp)
     {
-        if (temp_1001->status_1001 == 'Y')
+        if (temp->status == 'Y')
         {
-            printf("Cabin No. : %d\n", temp_1001->no_1001);
-            printf("Name : %s\n", temp_1001->pat_1001->name_1001);
-            printf("Gender : %c\n", temp_1001->pat_1001->gender_1001);
-            printf("Disease : %s\n", temp_1001->pat_1001->disease_1001);
+            printf("Cabin No. : %d\n", temp->no);
+            printf("Name : %s\n", temp->pat->name);
+            printf("Gender : %c\n", temp->pat->gender);
+            printf("Disease : %s\n", temp->pat->disease);
             printf("\n");
         }
-        temp_1001 = temp_1001->link_1001;
+        temp = temp->link;
     }
-    struct patient *pat_1001 = malloc(sizeof(struct patient));
-    if (!wmh_1001)
+    struct patient *pat = malloc(sizeof(struct patient));
+    if (!wmh)
         printf("Waiting List for Male is Empty\n");
     else
     {   
         printf("----WAITING LIST MALE ----- \n");
-        pat_1001 = wmh_1001;
-        while (pat_1001)
+        pat = wmh;
+        while (pat)
         {
-            printf("Name : %s\n", pat_1001->name_1001);
-            printf("Gender : %c\n", pat_1001->gender_1001);
-            printf("Disease : %s\n", pat_1001->disease_1001);
+            printf("Name : %s\n", pat->name);
+            printf("Gender : %c\n", pat->gender);
+            printf("Disease : %s\n", pat->disease);
             printf("\n");
-            pat_1001 = pat_1001->link_1001;
+            pat = pat->link;
         }
     }
-    if (!wfh_1001)
+    if (!wfh)
         printf("Waiting List for Female is Empty\n");
     else
     {
         printf("----WAITING LIST FEMALE----\n");
-        pat_1001 = wfh_1001;
-        while (pat_1001)
+        pat = wfh;
+        while (pat)
         {
-            printf("Name : %s\n", pat_1001->name_1001);
-            printf("Gender : %c\n", pat_1001->gender_1001);
-            printf("Disease : %s\n", pat_1001->disease_1001);
+            printf("Name : %s\n", pat->name);
+            printf("Gender : %c\n", pat->gender);
+            printf("Disease : %s\n", pat->disease);
             printf("\n");
-            pat_1001 = pat_1001->link_1001;
+            pat = pat->link;
         }
     }
 }
 int main()
 {
-    int ch_1001;
+    int ch;
 in:
     printf("Enter the value of n : ");
-    scanf("%d", &n_1001);
-    if (n_1001 < 1)
+    scanf("%d", &n);
+    if (n < 1)
     {
         printf("Invalid Input\n");
         goto in;
     }
-    mmax_1001 = n_1001 / 2 + n_1001 % 2, fmax_1001 = n_1001 / 2;
+    mmax = n / 2 + n % 2, fmax = n / 2;
     create();
     printf("\nEnter 1. to admit");
     printf("\nEnter 2. to discharge");
@@ -226,14 +226,14 @@ in:
     while (1)
     {
         printf("\nEnter your choice : ");
-        scanf("%d", &ch_1001);
-        if (ch_1001 == 1)
+        scanf("%d", &ch);
+        if (ch == 1)
             admit();
-        else if (ch_1001 == 2)
+        else if (ch == 2)
             discharge();
-        else if (ch_1001 == 3)
+        else if (ch == 3)
             display();
-        else if (ch_1001 == 0)
+        else if (ch == 0)
             break;
         else
             printf("Wrong Input\n");

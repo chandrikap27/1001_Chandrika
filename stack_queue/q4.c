@@ -2,17 +2,17 @@
 #include <stdlib.h>
 typedef struct Node
 {
-  int data_1001;
-  struct Node *next_1001;
-} Node_1001;
-Node_1001 *head_1001 = NULL, *front_1001 = NULL, *rear_1001 = NULL;
+  int data;
+  struct Node *next;
+} Node;
+Node *head = NULL, *front = NULL, *rear = NULL;
 void insert(void);
 int delete (void);
 int peek(void);
 void display(void);
 void main()
 {
-  int val_1001, option_1001;
+  int val, option;
   do
   {
     printf("\n***MAIN MENU*");
@@ -21,66 +21,66 @@ void main()
     printf("\n 3. Display the queue");
     printf("\n 4. EXIT");
     printf("\n Enter your option");
-    scanf("%d", &option_1001);
-    switch (option_1001)
+    scanf("%d", &option);
+    switch (option)
     {
     case 1:
       insert();
       break;
     case 2:
-      val_1001 = delete ();
-      if (val_1001 != -1)
-        printf("\n The deleted element from queue is : %d", val_1001);
+      val = delete ();
+      if (val != -1)
+        printf("\n The deleted element from queue is : %d", val);
       break;
     case 3:
       display();
       break;
     }
-  } while (option_1001 != 4);
+  } while (option != 4);
 }
 void insert()
 {
-  int num_1001;
+  int num;
   printf("\n Enter the number to be inserted in queue :");
-  scanf("%d", &num_1001);
-  Node_1001 *n_1001 = (Node_1001 *)malloc(sizeof(Node_1001));
-  n_1001->data_1001 = num_1001;
-  n_1001->next_1001 = NULL;
-  if (front_1001 == NULL && rear_1001 == NULL)
+  scanf("%d", &num);
+  Node *n = (Node *)malloc(sizeof(Node));
+  n->data = num;
+  n->next = NULL;
+  if (front == NULL && rear == NULL)
   {
-    front_1001 = rear_1001 = n_1001;
+    front = rear = n;
   }
   else
   {
-    rear_1001->next_1001 = n_1001;
-    rear_1001 = n_1001;
+    rear->next = n;
+    rear = n;
   }
 }
 int delete ()
 {
-  int val_1001;
-  if (front_1001 == NULL)
+  int val;
+  if (front == NULL)
   {
     printf("\nQueue underflow");
     return -1;
   }
   else
   {
-    val_1001 = front_1001->data_1001;
-    front_1001 = front_1001->next_1001;
-    return val_1001;
+    val = front->data;
+    front = front->next;
+    return val;
   }
 }
 void display()
 {
-  int i_1001;
-  if (front_1001 == NULL || rear_1001 == NULL)
+  int i;
+  if (front == NULL || rear == NULL)
   {
     printf("\nQueue is empty");
   }
   else
   {
-    for (Node_1001 *curr_1001 = front_1001; curr_1001 != rear_1001->next_1001; curr_1001 = curr_1001->next_1001)
-      printf("%d  ", curr_1001->data_1001);
+    for (Node *curr = front; curr != rear->next; curr = curr->next)
+      printf("%d  ", curr->data);
   }
 }

@@ -1,85 +1,85 @@
 #include <stdio.h>  
   
 # define max 6  
-int queue_1001[max];   
-int front_1001=-1;  
-int rear_1001=-1;  
+int queue[max];   
+int front=-1;  
+int rear=-1;  
  
-void enqueue(int element_1001)  
+void enqueue(int element)  
 {  
-    if(front_1001==-1 && rear_1001==-1) 
+    if(front==-1 && rear==-1) 
     {  
-        front_1001=0;  
-        rear_1001=0;  
-        queue_1001[rear_1001]=element_1001;  
+        front=0;  
+        rear=0;  
+        queue[rear]=element;  
     }  
-    else if((rear_1001+1)%max==front_1001)    
+    else if((rear+1)%max==front)    
     {  
         printf("Queue is overflow..");  
     }  
     else  
     {  
-        rear_1001=(rear_1001+1)%max;       
-        queue_1001[rear_1001]=element_1001;      
+        rear=(rear+1)%max;       
+        queue[rear]=element;      
     }  
 }  
  
 int dequeue()  
 {  
-    if((front_1001==-1) && (rear_1001==-1))   
+    if((front==-1) && (rear==-1))   
     {  
         printf("\nQueue is underflow..");  
     }  
- else if(front_1001==rear_1001)  
+ else if(front==rear)  
 {  
-   printf("\nThe dequeued element is %d", queue_1001[front_1001]);  
-   front_1001=-1;  
-   rear_1001=-1;  
+   printf("\nThe dequeued element is %d", queue[front]);  
+   front=-1;  
+   rear=-1;  
 }   
 else  
 {  
-    printf("\nThe dequeued element is %d", queue_1001[front_1001]);  
-   front_1001=(front_1001+1)%max;  
+    printf("\nThe dequeued element is %d", queue[front]);  
+   front=(front+1)%max;  
 }  
 }  
  
 void display()  
 {  
-    int i_1001=front_1001;  
-    if(front_1001==-1 && rear_1001==-1)  
+    int i=front;  
+    if(front==-1 && rear==-1)  
     {  
         printf("\n Queue is empty..");  
     }  
     else  
     {  
         printf("\nElements in a Queue are :");  
-        while(i_1001<=rear_1001)  
+        while(i<=rear)  
         {  
-            printf("%d  ", queue_1001[i_1001]);  
-            i_1001=(i_1001+1)%max;  
+            printf("%d  ", queue[i]);  
+            i=(i+1)%max;  
         }  
     }  
 }  
 int main()  
 {  
-    int choice_1001=1,x_1001;  
+    int choice=1,x;  
       
-    while(choice_1001<4 && choice_1001!=0)    
+    while(choice<4 && choice!=0)    
     {  
     printf("\n Press 1: Insert an element");  
     printf("\nPress 2: Delete an element");  
     printf("\nPress 3: Display the element");  
     printf("\nEnter your choice");  
-    scanf("%d", &choice_1001);  
+    scanf("%d", &choice);  
       
-    switch(choice_1001)  
+    switch(choice)  
     {  
           
         case 1:  
       
         printf("Enter the element which is to be inserted");  
-        scanf("%d", &x_1001);  
-        enqueue(x_1001);  
+        scanf("%d", &x);  
+        enqueue(x);  
         break;  
         case 2:  
         dequeue();  
